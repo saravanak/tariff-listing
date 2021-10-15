@@ -1,0 +1,15 @@
+{{#if @isHeader}}
+  <tr>
+    {{#each @columns as |column|}}
+      {{yield (hash Cell=(component 'ui/table-header-cell' column=column))}}
+    {{/each}}
+  </tr>
+{{else}}
+  {{#each @rows as |row|}}
+    <tr class="{{compute (fn this.rowClasses row)}}">
+      {{#each @columns as |column|}}
+        {{yield (hash Cell=(component 'ui/table-cell' column=column row=row))}}
+      {{/each}}
+    </tr>
+  {{/each}}
+{{/if}}

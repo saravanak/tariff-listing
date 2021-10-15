@@ -1,0 +1,102 @@
+<div class="py-2 rounded-lg bg-white">
+  <TariffDeleteRow
+    @selectionsCount={{this.selectedCount}}
+    @areAllTariffsSelected={{this.areAllTariffsSelected}}
+    @handleSelectAll={{this.handleSelectAll}}
+    @onDelete={{fn (mut this.isDeleting) true}}
+  />
+  <div class="table-container" >
+    {{#let (map-by 'id' this.selections) as |selectedTariffIds|}}
+      <Ui::Table
+        @columns={{this.columns}}
+        @rows={{@model}}
+        @isRowSelected={{this.isRowSelected}} as |table|
+      >
+        <table.Head as |head|>
+          <head.Row as |row|>
+            <row.Cell />
+          </head.Row>
+        </table.Head>
+        <table.Body as |body|>
+          <body.Row as |row|>
+            <row.Cell as |cell|>
+              {{#let
+                cell.cellValue
+                cell.row
+                cell.column as |cellValue row column|
+              }}
+                {{#if column.isSelectorRow}}
+                  {{#let (gt row.schedulesCount 0) as |isSelectable|}}
+                    <div>
+                      {{#unless isSelectable}}
+                        <EmberTooltip
+                          class="w-full"
+                          @popperContainer="body"
+                          @text="No schedules to select"
+                        />
+                      {{/unless}}
+                      <input
+                        aria-label="Select Tariff"
+                        type="checkbox"
+                        disabled={{not isSelectable}}
+                        checked={{if
+                          isSelectable
+                          (includes row.id selectedTariffIds)
+                          false
+                        }}
+                        {{on 'change' (fn this.onSelectRow row)}}
+                      />
+                    </div>
+                  {{/let}}
+                {{else if column.cellComponent}}
+                  {{#component
+                    column.cellComponent
+                    cellValue=cellValue
+                    row=row
+                    column=column
+                    actions=(compute
+                      (fn this.getActionsForComponent row column)
+                    )
+                  }}{{/component}}
+                {{else}}
+                  {{cellValue}}
+                {{/if}}
+              {{/let}}
+            </row.Cell>
+          </body.Row>
+        </table.Body>
+      </Ui::Table>
+    {{/let}}
+  </div>
+</div>
+{{#if this.incrementingRow}}
+  <ModalDialog>
+    <h1>
+      Supplier Details
+    </h1>
+    <p>
+      Tariff ID
+    </p>
+    {{this.incrementingRow.id}}
+    {{this.incrementingRow.supplierName}}
+    <button onclick={{fn (mut this.incrementingRow) null}} type="button">
+      Close
+    </button>
+  </ModalDialog>
+{{/if}}
+{{#if this.isDeleting}}
+  <ModalDialog>
+    <h1>
+      Delete Rows
+    </h1>
+    {{#each this.selections as |tariff|}}
+      {{this.tariff.supplierName}}
+    {{/each}}
+    <button onclick={{this.deleteSelectedRows}} type="button">
+      Delete
+    </button>
+    <button onclick={{fn (mut this.isDeleting) false}} type="button">
+      Close
+    </button>
+  </ModalDialog>
+{{/if}}

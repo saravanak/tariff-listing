@@ -1,0 +1,39 @@
+<div class="ember-table toolbar">
+  <table>
+    <tbody>
+      <tr>
+        <td class="select-all-checkbox">
+          <input
+            data-test-action="select-all"
+            type="checkbox"
+            aria-label="Select All"
+            checked={{@areAllTariffsSelected}}
+            indeterminate={{this.isIndeterminate}}
+            {{on 'change' @handleSelectAll}}
+          />
+        </td>
+        <td>
+          <div class="flex pl-8">
+            <div class="mr-4 py-2">
+              {{#if @areAllTariffsSelected}}
+                All tariffs selected
+              {{else if @selectionsCount}}
+                Selected{{@selectionsCount}}tariffs
+              {{else}}
+                None Selected
+              {{/if}}
+            </div>
+            <button
+              disabled={{eq @selectionsCount 0}}
+              type="button"
+              {{on 'click' @onDelete}}
+            >
+              {{fa-icon 'trash'}}
+              Delete
+            </button>
+          </div>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>

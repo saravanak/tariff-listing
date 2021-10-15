@@ -1,0 +1,13 @@
+<tbody>
+  {{yield
+    (hash
+      Row=(component
+        'ui/table-row'
+        columns=@table.columns
+        rows=@table.rows
+        isHeader=false
+        isRowSelected=@table.isRowSelected
+      )
+    )
+  }}
+</tbody>

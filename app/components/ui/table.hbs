@@ -1,0 +1,12 @@
+<div class="ember-table">
+  <div class="ember-table-overflow">
+    <table>
+      {{yield
+        (hash
+          Head=(component 'ui/table-head' table=this)
+          Body=(component 'ui/table-body' table=this)
+        )
+      }}
+    </table>
+  </div>
+</div>

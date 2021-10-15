@@ -1,0 +1,13 @@
+<div class="text-center align-middle">
+  <span class="{{this.cellValueClasses}}">
+    {{@cellValue}}
+  </span>
+  {{#if (eq @cellValue 0)}}
+    <button
+      type="button"
+      {{on 'click' (fn @actions.onIncrementSchedules @row)}}
+    >
+      {{fa-icon 'plus-circle' size='lg'}}
+    </button>
+  {{/if}}
+</div>

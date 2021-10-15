@@ -17,15 +17,26 @@ const purgeCSS = {
 
 module.exports = function (defaults) {
   let app = new EmberApp(defaults, {
+    sassOptions: { implementation: require('node-sass') },
+
     postcssOptions: {
       compile: {
+        extension: 'scss',
+        enabled: true,
+        parser: require('postcss-scss'),
         plugins: [
           {
-            module: require('postcss-import'),
+            module: require('@csstools/postcss-sass'),
             options: {
-              path: ['node_modules'],
+              includePaths: ['node_modules'],
             },
           },
+          // {
+          //   module: require('postcss-import'),
+          //   options: {
+          //     path: ['node_modules'],
+          //   },
+          // },
           require('tailwindcss')('./app/tailwind/config.js'),
           ...(isProduction ? [purgeCSS] : []),
         ],

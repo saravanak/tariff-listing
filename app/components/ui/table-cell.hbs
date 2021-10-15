@@ -1,0 +1,9 @@
+<td class="{{this.cellClasses}}">
+  {{#let (get @row (get @column 'valuePath')) as |cellValue|}}
+    {{#if (has-block)}}
+      {{yield (hash cellValue=cellValue row=@row column=@column)}}
+    {{else}}
+      {{cellValue}}
+    {{/if}}
+  {{/let}}
+</td>

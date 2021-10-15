@@ -1,0 +1,13 @@
+<ul class="tariff-charges-cell">
+  {{#each @cellValue as |charge|}}
+    <li>
+      <span class="charges-row">
+        {{charge.description}}
+        <span class="font-bold">
+          {{charge.currency}}
+          {{charge.amount}}
+        </span>
+      </span>
+    </li>
+  {{/each}}
+</ul>

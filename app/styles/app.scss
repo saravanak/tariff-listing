@@ -1,0 +1,31 @@
+@import "tailwindcss/base";
+
+@import "tailwindcss/components";
+@import "components.scss";
+
+@import "tailwindcss/utilities";
+@import "utilities.scss";
+
+@import "ember-modal-dialog/ember-modal-structure";
+@import "ember-modal-dialog/ember-modal-appearance";
+
+body {
+    @apply h-screen fixed w-full select-none;
+}
+
+button {
+    @apply p-2;
+    &:hover {
+        @apply bg-gray-200 rounded;
+    }
+    .outline {
+        @apply border border-gray-200 ;
+    }
+    &:disabled {
+        @apply text-gray-400 pointer-events-none ;
+    }
+}
+
+.select-all-checkbox {
+    width:25px;min-width:25px;max-width:25px;
+}

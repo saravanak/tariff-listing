@@ -1,0 +1,57 @@
+@layer components {
+    .table-container {
+        @apply bg-white text-gray-900  w-full text-left table-auto border-collapse text-sm;      
+        height: 80vh;
+    }
+    .ember-table {
+        table{
+            @apply w-full text-left table-auto border-collapse;
+        }
+
+        thead {
+            th {
+                @apply py-4 px-4 bg-white;
+            }
+            @apply border-b border-gray-200;
+        }
+
+        tr:not(:last-child) {
+            @apply border-b border-gray-200 bg-white;
+        }
+        
+        tbody {
+            td {
+                @apply py-8 px-4;
+            }
+    
+            tr {
+                @apply hover:bg-gray-50;
+                &.is-selected {
+                    @apply bg-gray-50;
+                }
+            }
+
+            
+        }
+
+        &.toolbar {
+            @apply border-b border-gray-200;
+            tbody {
+                td {
+                    @apply py-2 px-4 bg-white;
+                }
+            }
+        }
+    }
+
+    .tariff-charges-cell {
+        
+        li {
+            @apply  p-2 ;
+            .charges-row {
+                @apply bg-gray-200 text-xs rounded  p-2 ;
+            }
+        }
+        
+    } 
+  }
