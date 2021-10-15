@@ -16,11 +16,11 @@ export default class TariffsListComponent extends Component {
     },
     {
       name: `Valid From`,
-      valuePath: `validFrom`,
+      valuePath: `validFromFormatted`,
     },
     {
       name: `Expires`,
-      valuePath: `expires`,
+      valuePath: `expiresFormatted`,
     },
     {
       name: `Type`,
@@ -62,6 +62,10 @@ export default class TariffsListComponent extends Component {
     return (
       this.args.model?.length && this.selectableRowsCount == this.selectedCount
     );
+  }
+
+  get uniqueSupplierSelections() {
+    return this.selections.uniqBy('supplierCode');
   }
 
   @action

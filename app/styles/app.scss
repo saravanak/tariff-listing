@@ -15,6 +15,21 @@ body {
 
 button {
     @apply p-2;
+    &.primary {
+        @apply bg-blue-500 text-white rounded;
+        &:hover {
+            @apply bg-blue-400 rounded;
+        }
+    }
+    &.secondary {
+        @apply bg-gray-700 text-white rounded;
+        &:hover {
+            @apply bg-gray-600 rounded;
+        }
+    }
+    &.inline {
+        @apply flex  flex-row items-baseline;
+    }
     &:hover {
         @apply bg-gray-200 rounded;
     }
@@ -28,4 +43,43 @@ button {
 
 .select-all-checkbox {
     width:25px;min-width:25px;max-width:25px;
+}
+
+svg.icon {
+    @apply inline-block;
+
+    &.delete {
+        position: relative;
+        top: 0.25rem;
+    }
+}
+
+.ember-modal-dialog {
+    @apply bg-white rounded-lg shadow border overflow-hidden  w-64 p-0;
+    h5 {
+        @apply text-xl font-bold mb-4 mt-0 bg-gray-700 text-white text-center p-2;
+    }
+    .modal-content {
+        @apply text-gray-700 text-sm flex flex-col ;
+        .modal-body {
+            @apply flex-grow flex items-center;
+            min-height: 30vh;
+        }
+        
+        .actions-row {
+            @apply flex justify-end border-t p-2 border-gray-300;
+        }
+    }
+}
+
+ul.property-listing {
+    @apply w-full;
+    .list-item {
+        &:first-child {
+            @apply border-t;
+        }
+        &:not(:last-child) {
+            @apply border-b;
+        }
+    }
 }

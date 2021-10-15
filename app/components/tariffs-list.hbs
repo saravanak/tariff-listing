@@ -5,7 +5,7 @@
     @handleSelectAll={{this.handleSelectAll}}
     @onDelete={{fn (mut this.isDeleting) true}}
   />
-  <div class="table-container" >
+  <div class="table-container">
     {{#let (map-by 'id' this.selections) as |selectedTariffIds|}}
       <Ui::Table
         @columns={{this.columns}}
@@ -70,33 +70,59 @@
   </div>
 </div>
 {{#if this.incrementingRow}}
-  <ModalDialog>
-    <h1>
-      Supplier Details
-    </h1>
-    <p>
-      Tariff ID
-    </p>
-    {{this.incrementingRow.id}}
-    {{this.incrementingRow.supplierName}}
-    <button onclick={{fn (mut this.incrementingRow) null}} type="button">
-      Close
-    </button>
-  </ModalDialog>
+  <Ui::Modal @heading="Supplier Details" as |modal|>
+    <modal.Body>
+      <ul class="property-listing">
+        <Ui::ListItem @heading="Tariff ID" @value={{this.incrementingRow.id}} />
+        <Ui::ListItem
+          @heading="Supplier Name"
+          @value={{this.incrementingRow.supplierName}}
+        />
+      </ul>
+    </modal.Body>
+    <modal.Footer>
+      <button
+        class="primary"
+        onclick={{fn (mut this.incrementingRow) null}}
+        type="button"
+      >
+        Close
+      </button>
+    </modal.Footer>
+  </Ui::Modal>
 {{/if}}
 {{#if this.isDeleting}}
-  <ModalDialog>
-    <h1>
-      Delete Rows
-    </h1>
-    {{#each this.selections as |tariff|}}
-      {{this.tariff.supplierName}}
-    {{/each}}
-    <button onclick={{this.deleteSelectedRows}} type="button">
-      Delete
-    </button>
-    <button onclick={{fn (mut this.isDeleting) false}} type="button">
-      Close
-    </button>
-  </ModalDialog>
+  <Ui::Modal @heading="Delete Selected Tariffs" as |modal|>
+    <modal.Body>
+      <div>
+        <p class="p-2 text-md">
+          The list of suppliers for the chosen tariffs
+        </p>
+        <ul class="property-listing">
+          {{#each this.uniqueSupplierSelections as |tariff|}}
+            <Ui::ListItem
+              @heading={{tariff.supplierCode}}
+              @value={{tariff.supplierName}}
+            />
+          {{/each}}
+        </ul>
+      </div>
+    </modal.Body>
+    <modal.Footer>
+      <button
+        class="primary mr-2"
+        onclick={{this.deleteSelectedRows}}
+        type="button"
+      >
+        Delete
+      </button>
+      <button
+        class="secondary"
+        onclick={{fn (mut this.isDeleting) false}}
+        type="button"
+      >
+        Close
+      </button>
+    </modal.Footer>
+  </Ui::Modal>
 {{/if}}
