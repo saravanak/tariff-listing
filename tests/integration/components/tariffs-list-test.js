@@ -12,7 +12,11 @@ module('Integration | Component | tariffs-list', function (hooks) {
 
     await render(hbs`<TariffsList />`);
 
-    assert.dom(this.element).hasText('');
+    assert
+      .dom(this.element)
+      .hasText(
+        'None Selected Delete Valid From Expires Type Schedule Supplier Charges'
+      );
 
     // Template block usage:
     await render(hbs`
@@ -21,6 +25,10 @@ module('Integration | Component | tariffs-list', function (hooks) {
       </TariffsList>
     `);
 
-    assert.dom(this.element).hasText('template block text');
+    assert
+      .dom(this.element)
+      .hasText(
+        'None Selected Delete Valid From Expires Type Schedule Supplier Charges'
+      );
   });
 });

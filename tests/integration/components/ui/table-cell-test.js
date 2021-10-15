@@ -7,20 +7,21 @@ module('Integration | Component | ui/table-cell', function (hooks) {
   setupRenderingTest(hooks);
 
   test('it renders', async function (assert) {
-    // Set any properties with this.set('myProperty', 'value');
+    this.set('column', { valuePath: 'fruit' });
+    this.set('row', { fruit: 'grape' });
     // Handle any actions with this.set('myAction', function(val) { ... });
 
-    await render(hbs`<Ui::TableCell />`);
+    await render(hbs`<Ui::TableCell @column={{column}} @row={{row}}/>`);
 
-    assert.equal(this.element.textContent.trim(), '');
+    assert.equal(this.element.textContent.trim(), 'grape');
 
     // Template block usage:
     await render(hbs`
-      <Ui::TableCell>
-        template block text
+      <Ui::TableCell @column={{column}} @row={{row}} as |cell|>
+        {{cell.cellValue}} is here
       </Ui::TableCell>
     `);
 
-    assert.equal(this.element.textContent.trim(), 'template block text');
+    assert.equal(this.element.textContent.trim(), 'grape is here');
   });
 });

@@ -5,6 +5,7 @@
   {{#if (eq @cellValue 0)}}
     <button
       type="button"
+      data-test-action="zero-count-handler"
       {{on 'click' (fn @actions.onIncrementSchedules @row)}}
     >
       {{svg-jar 'circle-plus' class='icon' width='24px'}}

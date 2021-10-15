@@ -7,20 +7,16 @@ module('Integration | Component | ui/table-row', function (hooks) {
   setupRenderingTest(hooks);
 
   test('it renders', async function (assert) {
-    // Set any properties with this.set('myProperty', 'value');
-    // Handle any actions with this.set('myAction', function(val) { ... });
-
-    await render(hbs`<Ui::TableRow />`);
-
-    assert.equal(this.element.textContent.trim(), '');
+    this.set('columns', [{ name: 'fruit' }, { name: 'veg' }]);
 
     // Template block usage:
     await render(hbs`
-      <Ui::TableRow>
-        template block text
+      <Ui::TableRow @columns={{columns}} @isHeader={{true}} as |row|>
+        <row.Cell />
       </Ui::TableRow>
     `);
 
-    assert.equal(this.element.textContent.trim(), 'template block text');
+    assert.ok(this.element.textContent.includes('fruit'));
+    assert.ok(this.element.textContent.includes('veg'));
   });
 });

@@ -14,7 +14,7 @@
         </td>
         <td>
           <div class="flex pl-8">
-            <div class="mr-4 pt-4">
+            <div class="mr-4 pt-4" data-test-data="selection-status-text">
               {{#if @areAllTariffsSelected}}
                 All tariffs selected
               {{else if @selectionsCount}}
@@ -24,6 +24,7 @@
               {{/if}}
             </div>
             <button
+              data-test-action="delete-selected-tariffs"
               class="inline"
               disabled={{eq @selectionsCount 0}}
               type="button"

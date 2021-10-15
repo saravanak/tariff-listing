@@ -1,26 +1,33 @@
 import { module, test } from 'qunit';
 import { setupRenderingTest } from 'ember-qunit';
-import { render } from '@ember/test-helpers';
+import { render, find } from '@ember/test-helpers';
 import { hbs } from 'ember-cli-htmlbars';
+import {
+  ActionSelectors,
+  getActionSelector,
+} from '../../helpers/tariff-page-objects';
 
 module('Integration | Component | tariff-delete-row', function (hooks) {
   setupRenderingTest(hooks);
 
   test('it renders', async function (assert) {
-    // Set any properties with this.set('myProperty', 'value');
-    // Handle any actions with this.set('myAction', function(val) { ... });
+    this.set('handleSelectAll', function () {});
 
-    await render(hbs`<TariffDeleteRow />`);
+    await render(
+      hbs`<TariffDeleteRow @handleSelectAll={{this.handleSelectAll}} @onDelete={{this.handleSelectAll}}/>`
+    );
 
-    assert.equal(this.element.textContent.trim(), '');
+    assert.ok(find(getActionSelector(ActionSelectors.selectAllButton)));
 
     // Template block usage:
     await render(hbs`
-      <TariffDeleteRow>
-        template block text
+      <TariffDeleteRow @handleSelectAll={{this.handleSelectAll}}
+      @onDelete={{this.handleSelectAll}}
+      >
+        
       </TariffDeleteRow>
     `);
 
-    assert.equal(this.element.textContent.trim(), 'template block text');
+    assert.ok(find(getActionSelector(ActionSelectors.selectAllButton)));
   });
 });

@@ -7,20 +7,9 @@ module('Integration | Component | ui/table-header-cell', function (hooks) {
   setupRenderingTest(hooks);
 
   test('it renders', async function (assert) {
-    // Set any properties with this.set('myProperty', 'value');
-    // Handle any actions with this.set('myAction', function(val) { ... });
+    this.set('column', { name: 'fruit' });
+    await render(hbs`<Ui::TableHeaderCell @column={{column}}/>`);
 
-    await render(hbs`<Ui::TableHeaderCell />`);
-
-    assert.equal(this.element.textContent.trim(), '');
-
-    // Template block usage:
-    await render(hbs`
-      <Ui::TableHeaderCell>
-        template block text
-      </Ui::TableHeaderCell>
-    `);
-
-    assert.equal(this.element.textContent.trim(), 'template block text');
+    assert.equal(this.element.textContent.trim(), 'fruit');
   });
 });

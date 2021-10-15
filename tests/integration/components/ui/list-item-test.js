@@ -7,20 +7,19 @@ module('Integration | Component | ui/list-item', function (hooks) {
   setupRenderingTest(hooks);
 
   test('it renders', async function (assert) {
-    // Set any properties with this.set('myProperty', 'value');
-    // Handle any actions with this.set('myAction', function(val) { ... });
+    await render(hbs`<Ui::ListItem @heading="test" @value="apple"/>`);
 
-    await render(hbs`<Ui::ListItem />`);
-
-    assert.equal(this.element.textContent.trim(), '');
+    assert.ok(this.element.textContent.includes('test'));
+    assert.ok(this.element.textContent.includes('apple'));
 
     // Template block usage:
     await render(hbs`
-      <Ui::ListItem>
+      <Ui::ListItem @heading="test" @value="apple">
         template block text
       </Ui::ListItem>
     `);
 
-    assert.equal(this.element.textContent.trim(), 'template block text');
+    assert.ok(this.element.textContent.includes('test'));
+    assert.ok(this.element.textContent.includes('apple'));
   });
 });
